@@ -131,6 +131,7 @@ Add screenshots, demo video link, or deployed project link if available.
 <img width="1907" height="922" alt="image" src="https://github.com/user-attachments/assets/440fdfa7-d54d-4677-911c-2de70efa648d" />
 <img width="1913" height="905" alt="image" src="https://github.com/user-attachments/assets/938d4ca8-1eae-4967-9e5f-6c71069013b9" />
 <img width="1908" height="900" alt="image" src="https://github.com/user-attachments/assets/0853a1fb-ef94-4939-ac71-8ce09ce50746" />
+<img width="1912" height="912" alt="image" src="https://github.com/user-attachments/assets/5b8ac84c-3dac-4894-80fd-4b4451b14a54" />
 <img width="1918" height="967" alt="image" src="https://github.com/user-attachments/assets/2d67e966-f59f-4731-9a34-46514fbe091e" />
 
 
