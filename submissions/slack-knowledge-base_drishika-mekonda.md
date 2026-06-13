@@ -24,63 +24,60 @@ Intelligent Slack Knowledge Base
 ## Project Description
 
 * What is the project about?
-  The Intelligent Slack Knowledge Base is an AI-powered retrieval and Q&A system that bridges company documents (such as PDF training manuals, onboarding sheets, and policy files) and Slack discussion histories into a single, unified search interface. Powered by Google's gemini-2.5-flash and gemini-embedding-2 models, it features semantic search, multi-turn chat memory, and automatic document summarization.
+- The Intelligent Slack Knowledge Base is an AI-powered retrieval and Q&A system that bridges company documents (such as PDF training manuals, onboarding sheets, and policy files) and Slack discussion histories into a single, unified search interface. Powered by Google's gemini-2.5-flash and gemini-embedding-2 models, it features semantic search, multi-turn chat memory, and automatic document summarization.
 
 * Who is it for?
-It is designed for modern corporate organizations, engineering squads, HR departments, and customer support teams who use Slack as their primary operational hub and need a secure way to access and search through shared resources.
+- It is designed for modern corporate organizations, engineering squads, HR departments, and customer support teams who use Slack as their primary operational hub and need a secure way to access and search through shared resources.
 
 * What problem does it solve?
-It solves two major enterprise problems:
-
-Information Silos: Critical context is often lost inside dense, multi-page PDFs or scattered across thousands of nested Slack message threads.
-Data Leakage & Privacy: Generic AI models do not respect user boundaries. Our system implements strict role-based access control, isolating files into Personal (only you), Team (only your department), and Organization (global) security scopes.
+* It solves two major enterprise problems:
+- Information Silos: Critical context is often lost inside dense, multi-page PDFs or scattered across thousands of nested Slack message threads.
+- Data Leakage & Privacy: Generic AI models do not respect user boundaries. Our system implements strict role-based access control, isolating files into Personal (only you), Team (only your department), and Organization (global) security scopes.
 
 * How does it help the user?
-Instant Answers: Users can ask natural language questions and receive accurate answers grounded strictly in company documentation.
-Truthful Groundedness: Prevents AI hallucinations by providing clickable citation cards showing the raw source text segment.
-UX Fluency: Features a premium glassmorphic web dashboard that supports dynamic Light and Dark mode transitions, typing indicators, and markdown tags.
-Workplace Integration: Ingests Slack channel transcripts directly (complete with self-healing error guide prompts if the bot is missing from a channel) to capitalize on existing team knowledge.
+- Instant Answers: Users can ask natural language questions and receive accurate answers grounded strictly in company documentation.
+- Truthful Groundedness: Prevents AI hallucinations by providing clickable citation cards showing the raw source text segment.
+- UX Fluency: Features a premium glassmorphic web dashboard that supports dynamic Light and Dark mode transitions, typing indicators, and markdown tags.
+- Workplace Integration: Ingests Slack channel transcripts directly (complete with self-healing error guide prompts if the bot is missing from a channel) to capitalize on existing team knowledge.
 
 ---
 
 ## Approach
 
 * How I understood the problem
-We identified that corporate knowledge is split into two forms: structured static manuals (PDFs, templates, wikis) and unstructured dynamic conversations (Slack channels, threaded debugging sessions, discussions). Traditional search tools fail because they only index keywords, missing semantic intent. Meanwhile, standard AI solutions fail because they lack access control (a junior dev shouldn't retrieve senior management HR files) and suffer from hallucinations (making up policies).
-
-Our goal was to build a system that securely connects both sources, enforces strict authorization boundaries, and guarantees grounded, verifiable answers.
+- We identified that corporate knowledge is split into two forms: structured static manuals (PDFs, templates, wikis) and unstructured dynamic conversations (Slack channels, threaded debugging sessions, discussions). Traditional search tools fail because they only index keywords, missing semantic intent. Meanwhile, standard AI solutions fail because they lack access control (a junior dev shouldn't retrieve senior management HR files) and suffer from hallucinations (making up policies).
+- Our goal was to build a system that securely connects both sources, enforces strict authorization boundaries, and guarantees grounded, verifiable answers.
 
 * What user flow I designed
-Onboarding: The user registers with a username, email, password, and a self-selected Team Name (e.g. Engineering, HR).
-Ingestion:
-PDF Ingestion: The user uploads a file, selects its access scope (Personal, Team, Org), and the backend automatically chunks, tags, and vectorizes it.
-Slack Ingestion: The user enters a Slack channel ID or thread timestamp. The backend pulls the history, resolves usernames, and indexes the chronological transcript.
-Knowledge Retrieval (Chat/Summary):
+- Onboarding: The user registers with a username, email, password, and a self-selected Team Name (e.g. Engineering, HR).
+- Ingestion:
+- PDF Ingestion: The user uploads a file, selects its access scope (Personal, Team, Org), and the backend automatically chunks, tags, and vectorizes it.
+- Slack Ingestion: The user enters a Slack channel ID or thread timestamp. The backend pulls the history, resolves usernames, and indexes the chronological transcript.
+- Knowledge Retrieval (Chat/Summary):
 The user asks a question in the chat and selects a scope.
 The system pulls relevant context chunks (filtering out unauthorized documents).
 The AI answers the question, outputting footnote references ([1], [2]).
 The user clicks on the footnote or citation cards to inspect the original text chunks.
 
 * What features I decided to build
-Multi-Scope Access Isolation: Personal, Team, and Organization scopes enforced via database and vector-store queries.
-Slack Transcript Ingestor: Captures message history and parent-child thread replies, compiling them into clean, tagged files.
-Traceable Citations & Footnotes: Expandable citation cards with file details and raw text snippet previews.
-Markdown Executive Summarizer: Automatic outline generator for long-form documents.
-Interactive UI: Glassmorphic dashboard styled with TailwindCSS v4, supporting real-time typing indicators and seamless Light/Dark theme switching.
+- Multi-Scope Access Isolation: Personal, Team, and Organization scopes enforced via database and vector-store queries.
+- Slack Transcript Ingestor: Captures message history and parent-child thread replies, compiling them into clean, tagged files.
+- Traceable Citations & Footnotes: Expandable citation cards with file details and raw text snippet previews.
+- Markdown Executive Summarizer: Automatic outline generator for long-form documents.
+- Interactive UI: Glassmorphic dashboard styled with TailwindCSS v4, supporting real-time typing indicators and seamless Light/Dark theme switching.
 
 * How AI is used in our solution
 We utilized the new google-genai SDK and mapped tasks to the optimal Gemini models:
-
-Vector Embeddings (gemini-embedding-2): Converts text chunks into high-dimensional vectors (3072 dimensions) to capture semantic meanings rather than simple keyword matches.
-Metadata Auto-Tagging (gemini-2.5-flash): Dynamically reads content previews during upload and generates descriptive category tags.
-Grounded Answer Generation (gemini-2.5-flash): Composes natural language answers. We use strict system prompts to constrain response logic to context blocks and generate citations.
-Document Summarization (gemini-2.5-flash): Synthesizes aggregated chunks into key takeaways.
+- Vector Embeddings (gemini-embedding-2): Converts text chunks into high-dimensional vectors (3072 dimensions) to capture semantic meanings rather than simple keyword matches.
+- Metadata Auto-Tagging (gemini-2.5-flash): Dynamically reads content previews during upload and generates descriptive category tags.
+- Grounded Answer Generation (gemini-2.5-flash): Composes natural language answers. We use strict system prompts to constrain response logic to context blocks and generate citations.
+- Document Summarization (gemini-2.5-flash): Synthesizes aggregated chunks into key takeaways.
 
 * What makes our approach useful or different
-Strict Security-First Scoping: Unlike general chat assistants, our RAG pipeline enforces scope boundaries at the vector search query level. Chunks are filtered before reaching the LLM context window using metadata tags matched to the user's JWT credentials.
-Context Preservation: Our sentence-boundary chunker ensures paragraphs are split cleanly, preserving readability.
-Slack Ingestion Self-Healing: Instead of crashing on Slack workspace permission errors (e.g., bot not invited), the UI catches specific exceptions and displays custom troubleshooting instructions.
-Dual Theme Design: Features a highly responsive frontend layout optimized for both light and dark display preferences.
+- Strict Security-First Scoping: Unlike general chat assistants, our RAG pipeline enforces scope boundaries at the vector search query level. Chunks are filtered before reaching the LLM context window using metadata tags matched to the user's JWT credentials.
+- Context Preservation: Our sentence-boundary chunker ensures paragraphs are split cleanly, preserving readability.
+- Slack Ingestion Self-Healing: Instead of crashing on Slack workspace permission errors (e.g., bot not invited), the UI catches specific exceptions and displays custom troubleshooting instructions.
+- Dual Theme Design: Features a highly responsive frontend layout optimized for both light and dark display preferences.
 
 ---
 
