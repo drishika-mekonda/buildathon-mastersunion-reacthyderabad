@@ -23,18 +23,18 @@ Intelligent Slack Knowledge Base
 
 ## Project Description
 
-* What is the project about?
+** What is the project about?**
 - The Intelligent Slack Knowledge Base is an AI-powered retrieval and Q&A system that bridges company documents (such as PDF training manuals, onboarding sheets, and policy files) and Slack discussion histories into a single, unified search interface. Powered by Google's gemini-2.5-flash and gemini-embedding-2 models, it features semantic search, multi-turn chat memory, and automatic document summarization.
 
-* Who is it for?
+** Who is it for?**
 - It is designed for modern corporate organizations, engineering squads, HR departments, and customer support teams who use Slack as their primary operational hub and need a secure way to access and search through shared resources.
 
-* What problem does it solve?
+** What problem does it solve?**
 * It solves two major enterprise problems:
 - Information Silos: Critical context is often lost inside dense, multi-page PDFs or scattered across thousands of nested Slack message threads.
 - Data Leakage & Privacy: Generic AI models do not respect user boundaries. Our system implements strict role-based access control, isolating files into Personal (only you), Team (only your department), and Organization (global) security scopes.
 
-* How does it help the user?
+**How does it help the user?**
 - Instant Answers: Users can ask natural language questions and receive accurate answers grounded strictly in company documentation.
 - Truthful Groundedness: Prevents AI hallucinations by providing clickable citation cards showing the raw source text segment.
 - UX Fluency: Features a premium glassmorphic web dashboard that supports dynamic Light and Dark mode transitions, typing indicators, and markdown tags.
